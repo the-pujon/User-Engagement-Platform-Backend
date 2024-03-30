@@ -15,14 +15,14 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  "/webhook",
-  express.json({
-    verify: (req, res, buf) => {
-      req.rawBody = buf.toString();
-    },
-  })
-);
+//app.use(
+//  "/webhook",
+//  express.json({
+//    verify: (req, res, buf) => {
+//      req.rawBody = buf.toString();
+//    },
+//  })
+//);
 
 app.use(express.json());
 
