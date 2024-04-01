@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+require("./src/config/db");
+const authRouter = require("./src/routes/auth.routes")
 
 const bodyParser = require("body-parser");
 
@@ -25,6 +27,10 @@ app.use(express.urlencoded({ extended: true }));
 //);
 
 app.use(express.json());
+
+app.use("/api/user", authRouter)
+
+
 
 
 
