@@ -2,13 +2,14 @@ const Mission = require("../model/mission.schema");
 
 exports.createMission = async (req, res) => {
   try {
-    const { title, description, missionType } = req.body;
-    const createdBy = req.user.userId;
+    const { title, description, missionType, userId, questions } = req.body;
+    //const createdBy = req.user.userId;
     const newMission = await Mission.create({
       missionType,
       title,
       description,
-      createdBy,
+      createdBy:userId,
+      questions
     });
     res.status(201).json(newMission);
   } catch (err) {
@@ -49,18 +50,20 @@ exports.updateMission = async (req, res) => {
 };
 
 exports.deleteMission = async (req, res) => {
+  //console.log(req)
   try {
     const mission = await Mission.findById(req.params.id);
+    console.log(mission)
     if (!mission) {
       return res.status(404).json({ error: "Mission not found" });
     }
-    if (mission.createdBy != req.user.userId) {
+    if (mission.createdBy != req.decoded.userId) {
       return res
         .status(403)
         .json({ error: "You are not authorized to delete this mission" });
     }
-    await mission.remove();
-    res.status(204).json();
+   const missionDelete = await Mission.findByIdAndDelete(req.params.id);
+    res.status(200).json({ status: "success", message: "Mission deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

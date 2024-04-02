@@ -25,6 +25,7 @@ const missionSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    questions:[]
   },
   { timestamps: true }
 );

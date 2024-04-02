@@ -3,6 +3,7 @@ const cors = require("cors");
 require("./src/config/db");
 const authRouter = require("./src/routes/auth.routes")
 const missionRouter = require("./src/routes/mission.routes")
+require("dotenv").config()
 
 const bodyParser = require("body-parser");
 
