@@ -19,7 +19,11 @@ const app = express();
 
 app.use(cors());
 
-//app.use(cors(corsOptions));
+var corsOptions = {
+  origin: `${process.env.FRONTEND_URL}`,
+};
+
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 
 //app.use(
