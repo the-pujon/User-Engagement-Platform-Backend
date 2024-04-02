@@ -26,14 +26,23 @@ exports.getAllMissions = async (req, res) => {
   }
 };
 
+exports.getSingleMissions = async (req, res) => {
+  try {
+    const mission = await Mission.findById(req.params.id);
+    res.status(200).json(mission);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 exports.updateMission = async (req, res) => {
   try {
-    const { title, description, status, missionType } = req.body;
+    const { title, description, status, missionType, questions } = req.body;
     const mission = await Mission.findById(req.params.id);
     if (!mission) {
       return res.status(404).json({ error: "Mission not found" });
     }
-    if (mission.createdBy != req.user.userId) {
+    if (mission.createdBy != req.decoded.userId) {
       return res
         .status(403)
         .json({ error: "You are not authorized to update this mission" });
@@ -42,6 +51,7 @@ exports.updateMission = async (req, res) => {
     mission.title = title;
     mission.description = description;
     mission.status = status;
+    mission.questions = questions
     await mission.save();
     res.status(200).json(mission);
   } catch (err) {

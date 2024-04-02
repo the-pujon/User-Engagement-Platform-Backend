@@ -7,6 +7,7 @@ const authMiddleware = require('../middlewares/auth.middleware');
 
 router.post('/', missionController.createMission);
 router.get('/', missionController.getAllMissions);
+router.get('/:id', missionController.getSingleMissions);
 router.put('/:id', authMiddleware, missionController.updateMission);
 router.delete('/:id', authMiddleware, missionController.deleteMission);
 

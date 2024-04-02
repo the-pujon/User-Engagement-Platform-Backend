@@ -3,6 +3,7 @@ const cors = require("cors");
 require("./src/config/db");
 const authRouter = require("./src/routes/auth.routes")
 const missionRouter = require("./src/routes/mission.routes")
+const submitMissionRouter = require("./src/routes/submitMission.routes")
 require("dotenv").config()
 
 const bodyParser = require("body-parser");
@@ -32,6 +33,7 @@ app.use(express.json());
 
 app.use("/api/user", authRouter)
 app.use("/api/mission", missionRouter)
+app.use("/api/submittedMission", submitMissionRouter)
 
 
 
